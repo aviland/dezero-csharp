@@ -1,25 +1,27 @@
 {
   "format": 1,
   "restore": {
-    "D:\\codes\\riderProject\\dezero-app\\src\\steps\\dezero.csproj": {}
+    "D:\\codes\\riderProjects\\dezero-cs\\src\\steps\\dezero.csproj": {}
   },
   "projects": {
-    "D:\\codes\\riderProject\\dezero-app\\src\\steps\\dezero.csproj": {
+    "D:\\codes\\riderProjects\\dezero-cs\\src\\steps\\dezero.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\codes\\riderProject\\dezero-app\\src\\steps\\dezero.csproj",
+        "projectUniqueName": "D:\\codes\\riderProjects\\dezero-cs\\src\\steps\\dezero.csproj",
         "projectName": "dezero",
-        "projectPath": "D:\\codes\\riderProject\\dezero-app\\src\\steps\\dezero.csproj",
-        "packagesPath": "C:\\Users\\haypo\\.nuget\\packages\\",
-        "outputPath": "D:\\codes\\riderProject\\dezero-app\\src\\steps\\obj\\",
+        "projectPath": "D:\\codes\\riderProjects\\dezero-cs\\src\\steps\\dezero.csproj",
+        "packagesPath": "C:\\Users\\renhui\\.nuget\\packages\\",
+        "outputPath": "D:\\codes\\riderProjects\\dezero-cs\\src\\steps\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\haypo\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\renhui\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -64,7 +66,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.302/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

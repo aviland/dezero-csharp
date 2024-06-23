@@ -1746,6 +1746,19 @@
         "runtime": {
           "bin/placeholder/dezero.dll": {}
         }
+      },
+      "Step01/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "dependencies": {
+          "NumSharp": "0.30.0"
+        },
+        "compile": {
+          "bin/placeholder/Step01.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Step01.dll": {}
+        }
       }
     }
   },
@@ -5577,11 +5590,18 @@
       "type": "project",
       "path": "../src/steps/dezero.csproj",
       "msbuildProject": "../src/steps/dezero.csproj"
+    },
+    "Step01/1.0.0": {
+      "type": "project",
+      "path": "../src/Step01/Step01.csproj",
+      "msbuildProject": "../src/Step01/Step01.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net8.0": [
       "Microsoft.NET.Test.Sdk >= 17.8.0",
+      "NumSharp >= 0.30.0",
+      "Step01 >= 1.0.0",
       "coverlet.collector >= 6.0.0",
       "dezero >= 1.0.0",
       "xunit >= 2.5.3",
@@ -5589,32 +5609,37 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\haypo\\.nuget\\packages\\": {}
+    "C:\\Users\\renhui\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\codes\\riderProject\\dezero-app\\dezero-test\\dezero-test.csproj",
+      "projectUniqueName": "D:\\codes\\riderProjects\\dezero-cs\\dezero-test\\dezero-test.csproj",
       "projectName": "dezero-test",
-      "projectPath": "D:\\codes\\riderProject\\dezero-app\\dezero-test\\dezero-test.csproj",
-      "packagesPath": "C:\\Users\\haypo\\.nuget\\packages\\",
-      "outputPath": "D:\\codes\\riderProject\\dezero-app\\dezero-test\\obj\\",
+      "projectPath": "D:\\codes\\riderProjects\\dezero-cs\\dezero-test\\dezero-test.csproj",
+      "packagesPath": "C:\\Users\\renhui\\.nuget\\packages\\",
+      "outputPath": "D:\\codes\\riderProjects\\dezero-cs\\dezero-test\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\haypo\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\renhui\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "D:\\codes\\riderProject\\dezero-app\\src\\steps\\dezero.csproj": {
-              "projectPath": "D:\\codes\\riderProject\\dezero-app\\src\\steps\\dezero.csproj"
+            "D:\\codes\\riderProjects\\dezero-cs\\src\\Step01\\Step01.csproj": {
+              "projectPath": "D:\\codes\\riderProjects\\dezero-cs\\src\\Step01\\Step01.csproj"
+            },
+            "D:\\codes\\riderProjects\\dezero-cs\\src\\steps\\dezero.csproj": {
+              "projectPath": "D:\\codes\\riderProjects\\dezero-cs\\src\\steps\\dezero.csproj"
             }
           }
         }
@@ -5637,6 +5662,10 @@
           "Microsoft.NET.Test.Sdk": {
             "target": "Package",
             "version": "[17.8.0, )"
+          },
+          "NumSharp": {
+            "target": "Package",
+            "version": "[0.30.0, )"
           },
           "coverlet.collector": {
             "target": "Package",
@@ -5667,7 +5696,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.302/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

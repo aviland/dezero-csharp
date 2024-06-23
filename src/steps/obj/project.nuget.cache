@@ -1,11 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "UIGIibp3TnyfczqeQyf4KLZ/EUs7/0TD/f08qgGHB/nhgGBHrl5jecPw6wq+1lmvZmq0T4xKPJaTbqUbGY53LA==",
+  "dgSpecHash": "3e4WSLPmGLA=",
   "success": true,
-  "projectFilePath": "D:\\codes\\riderProject\\dezero-app\\src\\steps\\dezero.csproj",
+  "projectFilePath": "D:\\codes\\riderProjects\\dezero-cs\\src\\steps\\dezero.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\haypo\\.nuget\\packages\\numsharp\\0.30.0\\numsharp.0.30.0.nupkg.sha512",
-    "C:\\Users\\haypo\\.nuget\\packages\\system.memory\\4.5.4\\system.memory.4.5.4.nupkg.sha512"
+    "C:\\Users\\renhui\\.nuget\\packages\\numsharp\\0.30.0\\numsharp.0.30.0.nupkg.sha512",
+    "C:\\Users\\renhui\\.nuget\\packages\\system.memory\\4.5.4\\system.memory.4.5.4.nupkg.sha512"
   ],
   "logs": []
 }
