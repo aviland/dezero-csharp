@@ -3,37 +3,32 @@ using NumSharp;
 
 namespace dezero
 {
-    public class F : Function
+    public class Step06
     {
-        public override Variable Forward(Variable x)
+        public static void Main()
         {
             var A = new Square();
             var B = new Exp();
             var C = new Square();
-            return C.Call(B.Call(A.Call(x)));
-        }
-    }
-    public class Step04
-    {
-        public static void Main()
-        {
-           var f = new Square();
+            var x = new Variable(np.array(0.5));
 
-            var x = new Variable(np.array(2.0));
-            var dy = NumericalDiff(f, x);
-            Console.WriteLine(dy);
+            var a = A.Call(x);
+            var b = B.Call(a);
+            var y = C.Call(b);
 
-             x = new Variable(np.array(0.5));
-             dy = NumericalDiff(new F(), x);
-            Console.WriteLine(dy);
+            y.grad = np.array(1.0);
+            b.grad = C.Backward(y.grad);
+            a.grad = B.Backward(b.grad);
+            x.grad = A.Backward(a.grad);
+            Console.WriteLine(x.grad.ToString());
 
         }
       
         private readonly static double eps=1e-4;
         public static double NumericalDiff(Function f, Variable x)
         {
-            Variable x0 = new Variable(x.data - eps);
-            Variable x1 = new Variable(x.data + eps);
+            Variable x0 = new(x.data - eps);
+            Variable x1 = new(x.data + eps);
             Variable y0 = f.Call(x0);
             Variable y1 = f.Call(x1);
             double z1 = y1.data - y0.data;
@@ -44,8 +39,7 @@ namespace dezero
     public class Variable(NDArray data)
     {
         public NDArray data = data;
-
-  
+        public NDArray? grad;
     }
 
     public abstract class Function
@@ -53,7 +47,7 @@ namespace dezero
         public NDArray? x;
         public Variable? y;
 
-        public Variable? input;
+        public Variable input;
         public Variable? ouput;
 
         public Variable Call(Variable input)
@@ -61,12 +55,21 @@ namespace dezero
             x = input.data;
             y = Forward(new Variable(x));
             var ouput = new Variable(y.data);
+            this.input = input;
             return ouput;
         }
         public abstract Variable Forward(Variable x);
+        public abstract NDArray Backward(NDArray gy);
     }
     public class Square : Function
     {
+        public override NDArray Backward(NDArray gy)
+        {
+            var x = this.input.data;
+            var gx = 2 * x * gy;
+            return gx;
+        }
+
         public override Variable Forward(Variable x)
         {
             return new Variable(x.data.matrix_power(2));
@@ -74,6 +77,13 @@ namespace dezero
     }
     public class Exp : Function
     {
+        public override NDArray Backward(NDArray gy)
+        {
+            var x = this.input.data;
+            var gx =np.exp(x)* gy;
+            return gx;
+        }
+
         public override Variable Forward(Variable x)
         {
             return new Variable(np.exp(x.data));
