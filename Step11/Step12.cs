@@ -63,12 +63,12 @@ namespace dezero
                 var f = fs.Pop();
                 var x = f?.inputs;
                 var y = f?.ouputs;
-                for(var i = 0; i < x.Length; i++)
+                for(var i = 0; i < x!.Length; i++)
                 {
-                    x[i].grad = f.Backward(y[i].grad);
-                    if (x[i].creator != null)
+                    x[i]!.grad = f!.Backward(y![i]!.grad);
+                    if (x[i]!.creator != null)
                     {
-                        fs?.Push(x[i].creator);
+                        fs.Push(x[i]!.creator);
                     }
                 }
               
@@ -81,8 +81,8 @@ namespace dezero
         public NDArray?[]? xs;
         public NDArray?[]? ys;
 
-        public Variable?[] inputs;
-        public Variable?[] ouputs;
+        public Variable?[]? inputs;
+        public Variable?[]? ouputs;
         public static NDArray? AsArray(NDArray? x)
         {
             if (np.isscalar(x))
@@ -94,7 +94,7 @@ namespace dezero
         
         public object Call(params Variable?[]? inputs)
         {
-            xs = new NDArray[inputs.Length];
+            xs = new NDArray[inputs!.Length];
             for(int i=0;i<inputs.Length;i++)
             {
                 xs[i] = inputs[i]!.data;
@@ -119,18 +119,18 @@ namespace dezero
             }
         }
         public abstract NDArray[] Forward(params NDArray?[]? x);
-        public abstract NDArray[] Backward(params NDArray[] gy);
+        public abstract NDArray?[]? Backward(params NDArray?[]? gy);
     }
     public class Add : Function
     {
-        public override NDArray[] Backward(NDArray[]? gy)
+        public override NDArray?[]? Backward(NDArray?[]? gy)
         {
             return null;
         }
 
         public override NDArray[] Forward(NDArray?[]? x)
         {
-            var x0 = x[0];
+            var x0 = x![0];
             var x1 = x[1];
             var y = x0 + x1;
             return [y];
