@@ -6,21 +6,21 @@ namespace dezero
 {
     public class Step12
     {
-        public static Variable Add(params Variable?[] x)
+        public static object add(Variable x0, Variable x1)
         {
-            return (Variable)new Add().Call(x);
+            return new Add().Call([x0, x1]);
         }
-
   
             public static void Main()
         {
-            var xs = new Variable[] { 
-                new(np.array(2)) ,
-            new(np.array(3))};
-    
-            var ys = Add(xs);
-            var y = ys;
-            Console.WriteLine(y!.data!.ToString());
+            var x0 = new Variable(np.array(2));
+            var x1 = new Variable(np.array(3));
+            var y = add(x0, x1);
+            if (y is Variable v)
+            {
+                Console.WriteLine(v.data.GetValue());
+            }
+           
 
         }
     }
@@ -120,6 +120,11 @@ namespace dezero
         }
         public abstract NDArray[] Forward(params NDArray?[]? x);
         public abstract NDArray?[]? Backward(params NDArray?[]? gy);
+
+        public  NDArray[] Forward(NDArray x0, NDArray x1)
+        {
+            return Forward([x0, x1]);
+        }
     }
     public class Add : Function
     {
@@ -128,11 +133,9 @@ namespace dezero
             return null;
         }
 
-        public override NDArray[] Forward(NDArray?[]? x)
+        public override NDArray[] Forward(params NDArray?[]? x)
         {
-            var x0 = x![0];
-            var x1 = x[1];
-            var y = x0 + x1;
+            var y = x[0] + x[1];
             return [y];
         }
     }
