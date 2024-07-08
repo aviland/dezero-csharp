@@ -1,4 +1,5 @@
 ﻿using NumSharp;
+using Step18;
 using System.Linq;
 
 namespace dezero
@@ -31,20 +32,26 @@ namespace dezero
 
             ys = Forward(xs);
             var ouputs = new Variable[ys.Length];
-
-            this.Generation = inputs.MaxBy((x) => { return x?.Generation; })!.Generation;
-
             for (int i = 0; i < ys.Length; i++)
             {
                 ouputs[i] = new Variable(AsArray(ys[i]));
                 ouputs[i].SetCreator(this);
             }
+            if (Config.EnableBackprop)
+            {
+                this.Generation = inputs.MaxBy((x) => { return x?.Generation; })!.Generation;
+                foreach (var item in ouputs)
+                {
+                    item.SetCreator(this);
+                }
+            }
+
             this.inputs = inputs;
 
             this.ouputs = new WeakReference<Variable>[ouputs.Length];
             for (int i = 0; i < ouputs.Length; i++)
             {
-                this.ouputs[i] = new WeakReference<Variable>(ouputs[i]);
+                this!.ouputs[i] =new WeakReference<Variable>(ouputs[i]);
             }
 
             if (this.ouputs.Length > 1)

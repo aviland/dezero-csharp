@@ -30,6 +30,11 @@ namespace dezero
             y.BackWard();
             Console.WriteLine(y.data.GetValue());
             Console.WriteLine(x.grad.GetValue());
+
+             x = new Variable(np.random.randn(10000000));
+             y = square(square(square(x)));
+            y.BackWard();
+            Console.WriteLine(y.grad.GetValue());
         }
     }
 

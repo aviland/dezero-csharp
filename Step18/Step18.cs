@@ -1,10 +1,11 @@
 // See https://aka.ms/new-console-template for more information
 using NumSharp;
+using Step18;
 using System.Runtime.InteropServices;
 
 namespace dezero
 {
-    public class Step17
+    public class Step18
     {
         public static Variable add(object x0, object x1)
         {
@@ -28,15 +29,26 @@ namespace dezero
         }
         public static void Main()
         {
-           for(int i = 0; i <= 10; i++)
-            {
-                //x = Variable(np.random.randn(10000))  # big data
-                //y = square(square(square(x)))
-               var  x = new Variable(np.random.randn(10000000));
-                var y = square(square(square(x)));
-                y.BackWard();
-                Console.WriteLine(y.grad.GetValue());
-            }
+            //x = Variable(np.random.randn(10000))  # big data
+            //y = square(square(square(x)))
+            var x0 = new Variable(np.array(1));
+            var x1 = new Variable(np.array(1));
+            var t = add(x0, x1);
+            var y = add(x0, t);
+            y.BackWard();
+            Console.WriteLine(y?.grad?.GetValue());
+            Console.WriteLine(t?.grad?.GetValue());
+            Console.WriteLine(x0?.grad?.GetValue());
+            Console.WriteLine(x1?.grad?.GetValue());
+
+            Config.EnableBackprop = true;
+            var x = new Variable(np.ones((100, 100, 100)));
+            y = square(square(square(x)));
+            y.BackWard();
+
+            Config.EnableBackprop = false;
+             x = new Variable(np.ones((100, 100, 100)));
+            y = square(square(square(x)));
         }
     }
 

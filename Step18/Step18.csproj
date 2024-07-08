@@ -5,7 +5,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <StartupObject>dezero.Step17</StartupObject>
+    <StartupObject>dezero.Step18</StartupObject>
     <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
 

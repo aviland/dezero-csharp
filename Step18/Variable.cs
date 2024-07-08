@@ -6,9 +6,10 @@ namespace dezero
 {
     public class Variable
     {
-        public Variable(NDArray? data)
+        public Variable(NDArray? data,bool RetainGrad=false)
         {
             this.data = data;
+            this.RetainGrad = RetainGrad;
         }
         public Variable(object? data)
         {
@@ -29,6 +30,7 @@ namespace dezero
         public NDArray? grad;
         public Function? creator;
         internal int Generation = 0;
+        bool RetainGrad;
 
         public void ClearGrad()
         {
@@ -96,8 +98,14 @@ namespace dezero
                         AddFunc(f!.inputs[i]!.creator!);
                     }
                 }
-
-
+                if (RetainGrad == false)
+                {
+                    foreach (var item in f.ouputs)
+                    {
+                        item!.TryGetTarget(out var g);
+                        g!.grad = null;
+                    }
+                }
             }
         }
     }
