@@ -1,5 +1,4 @@
 // See https://aka.ms/new-console-template for more information
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NumSharp;
 
 namespace dezero
@@ -10,8 +9,8 @@ namespace dezero
         {
             return new Add().Call([x0, x1]);
         }
-  
-            public static void Main()
+
+        public static void Main()
         {
             var x0 = new Variable(np.array(2));
             var x1 = new Variable(np.array(3));
@@ -20,7 +19,7 @@ namespace dezero
             {
                 Console.WriteLine(v.data.GetValue());
             }
-           
+
 
         }
     }
@@ -30,7 +29,7 @@ namespace dezero
         {
             if (data != null)
             {
-                if(data is  NDArray nd)
+                if (data is NDArray nd)
                 {
                     this.data = nd;
                 }
@@ -41,7 +40,7 @@ namespace dezero
             }
         }
 
-        public NDArray? data ;
+        public NDArray? data;
         public NDArray? grad;
         public Function? creator;
 
@@ -63,7 +62,7 @@ namespace dezero
                 var f = fs.Pop();
                 var x = f?.inputs;
                 var y = f?.ouputs;
-                for(var i = 0; i < x!.Length; i++)
+                for (var i = 0; i < x!.Length; i++)
                 {
                     x[i]!.grad = f!.Backward(y![i]!.grad);
                     if (x[i]!.creator != null)
@@ -71,7 +70,7 @@ namespace dezero
                         fs.Push(x[i]!.creator);
                     }
                 }
-              
+
             }
         }
     }
@@ -91,20 +90,20 @@ namespace dezero
             }
             return x;
         }
-        
+
         public object Call(params Variable?[]? inputs)
         {
             xs = new NDArray[inputs!.Length];
-            for(int i=0;i<inputs.Length;i++)
+            for (int i = 0; i < inputs.Length; i++)
             {
                 xs[i] = inputs[i]!.data;
             }
-        
+
             ys = Forward(xs);
             var ouputs = new Variable[ys.Length];
             for (int i = 0; i < ys.Length; i++)
             {
-                ouputs[i]= new Variable(AsArray(ys[i]));
+                ouputs[i] = new Variable(AsArray(ys[i]));
                 ouputs[i].SetCreator(this);
             }
             this.inputs = inputs;
@@ -121,7 +120,7 @@ namespace dezero
         public abstract NDArray[] Forward(params NDArray?[]? x);
         public abstract NDArray?[]? Backward(params NDArray?[]? gy);
 
-        public  NDArray[] Forward(NDArray x0, NDArray x1)
+        public NDArray[] Forward(NDArray x0, NDArray x1)
         {
             return Forward([x0, x1]);
         }

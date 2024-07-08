@@ -41,18 +41,18 @@ namespace dezero
     }
     public class Square : Function
     {
-        public override Variable Forward(Variable  x)
+        public override Variable Forward(Variable x)
         {
             return new Variable(x.data.matrix_power(2));
         }
     }
-   public class Exp : Function
+    public class Exp : Function
     {
         public override Variable Forward(Variable x)
         {
             return new Variable(np.exp(x.data));
         }
 
-        }
+    }
 }
 

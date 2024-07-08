@@ -37,7 +37,7 @@ namespace dezero
     }
     public class Square : Function
     {
-        public override Variable Forward(Variable  x)
+        public override Variable Forward(Variable x)
         {
             return new Variable(x.data.matrix_power(2));
         }

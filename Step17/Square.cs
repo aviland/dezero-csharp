@@ -1,6 +1,6 @@
 ﻿using NumSharp;
 
-namespace Step13
+namespace dezero
 {
     internal class Square : Function
     {

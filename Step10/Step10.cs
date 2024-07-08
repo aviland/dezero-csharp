@@ -1,8 +1,6 @@
 // See https://aka.ms/new-console-template for more information
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NumSharp;
-using NumSharp.Backends;
-using NumSharp.Generic;
 
 namespace dezero
 {
@@ -42,14 +40,14 @@ namespace dezero
             var expected = np.array(6.0);
             Assert.AreEqual(x.grad, expected);
         }
-            public static void Main()
+        public static void Main()
         {
             //SquareTestForward();
             //SquareTestBackward();
             TestGradientCheck();
         }
 
-        private readonly static double eps=1e-4;
+        private readonly static double eps = 1e-4;
         public static NDArray NumericalDiff(Function f, Variable x)
         {
             Variable x0 = new(x.data - eps);
@@ -58,7 +56,7 @@ namespace dezero
             Variable y1 = f.Call(x1);
             NDArray z1 = y1.data - y0.data;
             NDArray z2 = 2.0 * eps;
-            return z1/ z2;
+            return z1 / z2;
         }
     }
     public class Variable
@@ -67,7 +65,7 @@ namespace dezero
         {
             if (data != null)
             {
-                if(data is  NDArray nd)
+                if (data is NDArray nd)
                 {
                     this.data = nd;
                 }
@@ -76,10 +74,10 @@ namespace dezero
                     throw new IncorrectTypeException(data.GetType().ToString() + " is not supported");
                 }
             }
-           
+
 
         }
-        public NDArray? data ;
+        public NDArray? data;
         public NDArray? grad;
         public Function? creator;
 
@@ -125,7 +123,7 @@ namespace dezero
             }
             return x;
         }
-        
+
         public Variable Call(Variable? input)
         {
             x = input?.data;
@@ -158,7 +156,7 @@ namespace dezero
         public override NDArray Backward(NDArray? gy)
         {
             var x = this?.input?.data;
-            var gx =np.exp(x)* gy;
+            var gx = np.exp(x) * gy;
             return gx;
         }
 

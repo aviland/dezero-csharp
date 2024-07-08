@@ -17,19 +17,19 @@ namespace dezero
     {
         public static void Main()
         {
-           var f = new Square();
+            var f = new Square();
 
             var x = new Variable(np.array(2.0));
             var dy = NumericalDiff(f, x);
             Console.WriteLine(dy);
 
-             x = new Variable(np.array(0.5));
-             dy = NumericalDiff(new F(), x);
+            x = new Variable(np.array(0.5));
+            dy = NumericalDiff(new F(), x);
             Console.WriteLine(dy);
 
         }
-      
-        private readonly static double eps=1e-4;
+
+        private readonly static double eps = 1e-4;
         public static double NumericalDiff(Function f, Variable x)
         {
             Variable x0 = new Variable(x.data - eps);
@@ -38,14 +38,14 @@ namespace dezero
             Variable y1 = f.Call(x1);
             double z1 = y1.data - y0.data;
             double z2 = 2.0 * eps;
-            return z1/ z2;
+            return z1 / z2;
         }
     }
     public class Variable(NDArray data)
     {
         public NDArray data = data;
 
-  
+
     }
 
     public abstract class Function

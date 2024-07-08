@@ -23,8 +23,8 @@ namespace dezero
             Console.WriteLine(x.grad.ToString());
 
         }
-      
-        private readonly static double eps=1e-4;
+
+        private readonly static double eps = 1e-4;
         public static double NumericalDiff(Function f, Variable x)
         {
             Variable x0 = new(x.data - eps);
@@ -33,7 +33,7 @@ namespace dezero
             Variable y1 = f.Call(x1);
             double z1 = y1.data - y0.data;
             double z2 = 2.0 * eps;
-            return z1/ z2;
+            return z1 / z2;
         }
     }
     public class Variable(NDArray data)
@@ -80,7 +80,7 @@ namespace dezero
         public override NDArray Backward(NDArray gy)
         {
             var x = this.input.data;
-            var gx =np.exp(x)* gy;
+            var gx = np.exp(x) * gy;
             return gx;
         }
 

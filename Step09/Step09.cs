@@ -20,10 +20,10 @@ namespace dezero
             var x = new Variable(np.array(0.5));
 
             var a = Square(x);
-            var b =Exp(a);
+            var b = Exp(a);
             var y = Square(b);
 
-             y.grad = np.array(1.0);
+            y.grad = np.array(1.0);
             y.BackWard();
 
             /*b.grad = C.Backward(y.grad);
@@ -43,7 +43,7 @@ namespace dezero
             Console.WriteLine(x?.grad?.ToString());
         }
 
-        private readonly static double eps=1e-4;
+        private readonly static double eps = 1e-4;
         public static double NumericalDiff(Function f, Variable x)
         {
             Variable x0 = new(x.data - eps);
@@ -52,7 +52,7 @@ namespace dezero
             Variable y1 = f.Call(x1);
             double z1 = y1.data - y0.data;
             double z2 = 2.0 * eps;
-            return z1/ z2;
+            return z1 / z2;
         }
     }
     public class Variable
@@ -61,7 +61,7 @@ namespace dezero
         {
             if (data != null)
             {
-                if(data is  NDArray nd)
+                if (data is NDArray nd)
                 {
                     this.data = nd;
                 }
@@ -70,10 +70,10 @@ namespace dezero
                     throw new IncorrectTypeException(data.GetType().ToString() + " is not supported");
                 }
             }
-           
+
 
         }
-        public NDArray? data ;
+        public NDArray? data;
         public NDArray? grad;
         public Function? creator;
 
@@ -113,12 +113,13 @@ namespace dezero
         public Variable? ouput;
         public static NDArray? AsArray(object? x)
         {
-            if (x is NDArray nd){
+            if (x is NDArray nd)
+            {
                 return nd;
             }
             return np.array((double?)x);
         }
-        
+
         public Variable Call(Variable? input)
         {
             x = input?.data;
@@ -151,7 +152,7 @@ namespace dezero
         public override NDArray Backward(NDArray? gy)
         {
             var x = this?.input?.data;
-            var gx =np.exp(x)* gy;
+            var gx = np.exp(x) * gy;
             return gx;
         }
 

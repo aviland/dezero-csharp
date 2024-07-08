@@ -4,15 +4,15 @@ using System.Runtime.InteropServices;
 
 namespace dezero
 {
-    public class Step14
+    public class Step16
     {
         public static Variable add(object x0, object x1)
         {
             return (Variable)new Add().Call([(Variable)(x0), (Variable)x1]);
         }
-        public static object square(Variable x0)
+        public static Variable square(Variable x0)
         {
-            return new Square().Call([x0]);
+            return (Variable)new Square().Call([x0]);
         }
         public static string getMemory(object o) // 获取引用类型的内存地址方法    
         {
@@ -24,22 +24,12 @@ namespace dezero
         }
         public static void Main()
         {
-            var x = new Variable(np.array(3));
-            var y = add(x, x);
+            var x = new Variable(np.array(2));
+            var a =  square(x);
+            var y = add(square(a), square(a));
             y.BackWard();
+            Console.WriteLine(y.data.GetValue());
             Console.WriteLine(x.grad.GetValue());
-
-            x.ClearGrad();
-            y = add(add(x, x), x);
-            y.BackWard();
-            Console.WriteLine(x.grad.GetValue());
-
-            var z = np.array(1);
-            Console.WriteLine(getMemory(z));
-            z += z;
-            Console.WriteLine(getMemory(z));
-            z = z + z;
-            Console.WriteLine(getMemory(z));
         }
     }
 

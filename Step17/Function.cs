@@ -1,6 +1,7 @@
 ﻿using NumSharp;
+using System;
 
-namespace Step13
+namespace dezero
 {
     public abstract class Function
     {
@@ -9,6 +10,7 @@ namespace Step13
 
         public Variable?[]? inputs;
         public Variable?[]? ouputs;
+        internal int Generation = 0;
         public static NDArray? AsArray(NDArray? x)
         {
             if (np.isscalar(x))
@@ -29,6 +31,9 @@ namespace Step13
 
             ys = Forward(xs);
             var ouputs = new Variable[ys.Length];
+
+            this.Generation = inputs.MaxBy ((x) => { return x?.Generation; })!.Generation;
+
             for (int i = 0; i < ys.Length; i++)
             {
                 ouputs[i] = new Variable(AsArray(ys[i]));
