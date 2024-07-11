@@ -11,7 +11,7 @@ namespace dezero
 
         public override NDArray[] Forward(params NDArray?[]? x)
         {
-            var y = x[0] + x[1];
+            var y = x?[0] + x?[1];
             return [y];
         }
     }

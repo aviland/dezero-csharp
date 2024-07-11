@@ -9,15 +9,13 @@ namespace dezero
     {
         public static Variable add(object x0, object x1)
         {
-            Variable v;
-             new Add().Call([(Variable)(x0), (Variable)x1])[0].TryGetTarget(out v);
-            return v;
+             new Add().Call([(Variable)(x0), (Variable)x1])[0].TryGetTarget(out Variable? v);
+             return v!;
         }
         public static Variable square(Variable x0)
         {
-            Variable v;
-             new Square().Call([x0])[0].TryGetTarget(out v);
-            return v; 
+            new Square().Call([x0])[0].TryGetTarget(out Variable? v);
+            return v!; 
         }
         public static string getMemory(object o) // 获取引用类型的内存地址方法    
         {
