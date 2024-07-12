@@ -1,7 +1,5 @@
 ﻿using NumSharp;
-using System.Collections;
-using System.Runtime.CompilerServices;
-using System.Xml.Linq;
+using Step20;
 
 namespace dezero
 {
@@ -157,6 +155,25 @@ namespace dezero
                     }
                 }
             }
+        }
+        private static Variable Add(Variable b, Variable c)
+        {
+            return new Add().Call([b, c])[0];
+        }
+        public static Variable operator +(Variable b, Variable c)
+        {
+            return Add(b, c);
+        }
+
+
+        private static Variable Mul(Variable b, Variable c)
+        {
+            return new Mul().Call([b, c])[0];
+        }
+
+        public static Variable operator *(Variable b, Variable c)
+        {
+            return Mul(b, c) ;
         }
     }
 }
