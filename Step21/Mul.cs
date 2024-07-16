@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Step20
+namespace Step22
 {
     internal class Mul : Function
     {

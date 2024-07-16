@@ -164,7 +164,18 @@ namespace dezero
         {
             return Add(b, c);
         }
-
+        public static Variable operator +(Variable b, double c)
+        {
+            return Add(b, new Variable(c));
+        }
+        public static Variable operator +(Variable b, NDArray c)
+        {
+            return Add(b, new Variable(c));
+        }
+        public static Variable operator +(NDArray b, Variable c)
+        {
+            return Add(new Variable(b), c);
+        }
 
         private static Variable Mul(Variable b, Variable c)
         {
@@ -174,6 +185,39 @@ namespace dezero
         public static Variable operator *(Variable b, Variable c)
         {
             return Mul(b, c) ;
+        }
+
+        public static Variable operator *(double b, Variable c)
+        {
+            return Mul(new Variable(b), c);
+        }
+
+        public static Variable operator *(Variable b, double c)
+        {
+            return Mul(b, new Variable(c));
+        }
+
+        public static Variable operator -( Variable c)
+        {
+            return 0 - c;
+        }
+        public static Variable operator -(NDArray b,Variable c)
+        {
+            return new Variable(b - c.data);
+        }
+
+        public static Variable operator -(Variable b, NDArray c)
+        {
+            return new Variable(b.data - c);
+        }
+
+        public static Variable operator /(Variable b, NDArray c)
+        {
+            return new Variable(b.data / c);
+        }
+        public static Variable operator /(NDArray b,Variable  c)
+        {
+            return new Variable(b / c.data);
         }
     }
 }
