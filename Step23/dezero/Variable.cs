@@ -1,11 +1,10 @@
 ﻿using NumSharp;
-using Step22;
 
 namespace dezero
 {
     public class Variable
     {
-        public Variable(NDArray? data,  string? name = null)
+        public Variable(NDArray? data, string? name = null)
         {
             this.data = data;
             this.name = name;
@@ -28,37 +27,37 @@ namespace dezero
         public override string ToString()
         {
             //if self.data is None:
-          //  return 'variable(None)'
-     //   p = str(self.data).replace('\n', '\n' + ' ' * 9)
-     //   return 'variable(' + p + ')'
-            if(data is null)
+            //  return 'variable(None)'
+            //   p = str(self.data).replace('\n', '\n' + ' ' * 9)
+            //   return 'variable(' + p + ')'
+            if (data is null)
             {
                 return "Variable(None)";
             }
-            var p=this.data.ToString().Replace("\n","\n"+"         ");
+            var p = data.ToString().Replace("\n", "\n" + "         ");
             return $"Variable({p})";
         }
 
         public NDArray? data;
-        public NDArray? grad;
+        public Variable? grad;
         public Function? creator;
         internal int generation = 0;
         public string? name;
 
-        
 
-             public int Ndim
+
+        public int Ndim
         {
             get
             {
-                return this!.data!.ndim;
+                return data!.ndim;
             }
         }
         public int Size
         {
             get
             {
-                return this!.data!.size;
+                return data!.size;
             }
         }
 
@@ -66,7 +65,7 @@ namespace dezero
         {
             get
             {
-                return this!.data!.dtype;
+                return data!.dtype;
             }
         }
 
@@ -74,28 +73,28 @@ namespace dezero
         {
             get
             {
-                return $"[{string.Join(",", this!.data!.shape)}]";
+                return $"[{string.Join(",", data!.shape)}]";
             }
         }
 
         public void ClearGrad()
         {
-            this.grad = null;
+            grad = null;
         }
 
         public void SetCreator(Function v)
         {
-            this.creator = v;
-            this.generation = v.generation + 1;
+            creator = v;
+            generation = v.generation + 1;
         }
 
-        private  void AddFunc( Function f)
+        private void AddFunc(Function f)
         {
             if (!SeenSet.Contains(f))
             {
                 fs.Add(f);
                 SeenSet.Add(f);
-                fs.Sort(delegate(Function? x, Function? y)  { return x!.generation!.CompareTo(y!.generation); });
+                fs.Sort(delegate (Function? x, Function? y) { return x!.generation!.CompareTo(y!.generation); });
 
             }
         }
@@ -104,9 +103,9 @@ namespace dezero
         private readonly HashSet<Function?> SeenSet = [];
         public void BackWard(bool RetainGrad = false)
         {
-            if (this.grad == null)
+            if (grad == null)
             {
-                this.grad = np.ones_like(this.data);
+                grad = new Variable(np.ones_like(data));
             }
 
             fs.Clear();
@@ -123,7 +122,7 @@ namespace dezero
                 {
                     Variable o;
                     f.ouputs[i].TryGetTarget(out o);
-                    gys[i] = o.grad;
+                    gys[i] = o.grad.data;
                 }
 
                 var gxs = f.Backward(gys);
@@ -132,12 +131,12 @@ namespace dezero
                 {
                     if (f.inputs[i].grad == null)
                     {
-                        f.inputs[i].grad = gxs[i];
+                        f.inputs[i].grad = new Variable(gxs[i]);
                     }
                     else
                     {
                         //不必担心in-place运算问题
-                        f.inputs[i].grad = f.inputs[i].grad+ gxs[i];
+                        f.inputs[i].grad = f.inputs[i].grad + gxs[i];
                     }
                     if (f.inputs[i].creator != null)
                     {
@@ -162,9 +161,13 @@ namespace dezero
         {
             return Add(b, c);
         }
+        public static Variable operator +(Variable b, int c)
+        {
+            return Add(b, new Variable(np.array(c)));
+        }
         public static Variable operator +(Variable b, double c)
         {
-            return Add(b, new Variable(c));
+            return Add(b, new Variable(np.array(c)));
         }
         public static Variable operator +(Variable b, NDArray c)
         {
@@ -182,7 +185,7 @@ namespace dezero
 
         public static Variable operator *(Variable b, Variable c)
         {
-            return Mul(b, c) ;
+            return Mul(b, c);
         }
 
         public static Variable operator *(double b, Variable c)
@@ -195,11 +198,11 @@ namespace dezero
             return Mul(b, new Variable(c));
         }
 
-        public static Variable operator -( Variable c)
+        public static Variable operator -(Variable c)
         {
             return 0 - c;
         }
-        public static Variable operator -(NDArray b,Variable c)
+        public static Variable operator -(NDArray b, Variable c)
         {
             return new Variable(b - c.data);
         }
@@ -213,7 +216,7 @@ namespace dezero
         {
             return new Variable(b.data / c);
         }
-        public static Variable operator /(NDArray b,Variable  c)
+        public static Variable operator /(NDArray b, Variable c)
         {
             return new Variable(b / c.data);
         }

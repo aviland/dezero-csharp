@@ -27,8 +27,16 @@ namespace dezero
             y = 3.0/x + 1.0;
             Console.WriteLine(y);
 
-           // y = x ** 3;
+             y = Pow(x, 3) ;
+            Console.WriteLine(y);
+            // y = x ** 3;
             //Console.WriteLine(y);
+        }
+
+        private static Variable? Pow(Variable x, int v)
+        {
+            var z = x?.data?.matrix_power(v);
+            return new Variable(z);
         }
     }
 
