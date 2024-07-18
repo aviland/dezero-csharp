@@ -220,5 +220,15 @@ namespace dezero
         {
             return new Pow(v).Call(x)[0];
         }
+
+        public static Variable Cos(Variable x)
+        {
+            return new Cos().Call(x)[0];
+        }
+
+        public static Variable Sin(Variable x)
+        {
+            return new Sin().Call(x)[0];
+        }
     }
 }
