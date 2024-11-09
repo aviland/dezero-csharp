@@ -1,4 +1,4 @@
-// See https://aka.ms/new-console-template for more information
+ï»¿// See https://aka.ms/new-console-template for more information
 using NumSharp;
 using System.Runtime.InteropServices;
 using dezero;
@@ -7,7 +7,7 @@ namespace Step
 {
     public class Step24
     {
-        public static string getMemory(object o) // »ñÈ¡ÒıÓÃÀàĞÍµÄÄÚ´æµØÖ··½·¨    
+        public static string getMemory(object o) // è·å–å¼•ç”¨ç±»å‹çš„å†…å­˜åœ°å€æ–¹æ³•    
         {
             GCHandle h = GCHandle.Alloc(o, GCHandleType.WeakTrackResurrection);
 
